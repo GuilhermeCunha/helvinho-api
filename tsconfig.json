@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "lib": ["es5", "es6"],
+    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    //"esModuleInterop": true,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "outDir": "./dist",
+    "target": "es6",
+    //"noEmit": true,
+    //"allowSyntheticDefaultImports": true,
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "compileOnSave": false
+}
