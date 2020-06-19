@@ -1,6 +1,6 @@
 require('dotenv/config')
 
-export = {
+module.exports = {
   host: process.env.DB_HOST,
   type: 'mysql',
   port: Number(process.env.DB_PORT),
@@ -10,17 +10,17 @@ export = {
   synchronize: false,
   logging: false,
   entities: [
-    'src/database/entity/**/*.ts'
+    'dist/database/entity/**/*.js'
   ],
   migrations: [
-    'src/database/migration/**/*.ts'
+    'dist/database/migration/**/*.js'
   ],
   subscribers: [
-    'src/database/subscriber/**/*.ts'
+    'dist/database/subscriber/**/*.js'
   ],
   cli: {
     entitiesDir: 'src/database/entity',
     migrationsDir: 'src/database/migration',
     subscribersDir: 'src/database/subscriber'
   }
-};
+}
