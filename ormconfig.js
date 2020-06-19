@@ -1,5 +1,14 @@
 require('dotenv/config')
+const path = require('path')
+function isProduction () {
+  return process.env.PRODUCTION === 'TRUE'
+}
 
+if (isProduction()) {
+  console.log('Configurando TypeORM para ler arquivos de ./dist')
+} else {
+  console.log('Configurando TypeORM para ler arquivos de ./src')
+}
 module.exports = {
   host: process.env.DB_HOST,
   type: 'mysql',
@@ -10,17 +19,18 @@ module.exports = {
   synchronize: false,
   logging: false,
   entities: [
-    'dist/database/entity/**/*.js'
+    isProduction() ? path.join(__dirname, 'dist/database/entity/**/*.js}') : path.join(__dirname, 'src/database/entity/**/*.ts')
+
   ],
   migrations: [
-    'dist/database/migration/**/*.js'
+    isProduction() ? path.join(__dirname, 'dist/database/migration/**/*.js') : path.join(__dirname, 'src/database/migration/**/*.ts')
   ],
   subscribers: [
-    'dist/database/subscriber/**/*.js'
+    isProduction() ? path.join(__dirname, 'dist/database/subscriber/**/*.js') : path.join(__dirname, 'src/database/subscriber/**/*.ts')
   ],
   cli: {
-    entitiesDir: 'src/database/entity',
-    migrationsDir: 'src/database/migration',
-    subscribersDir: 'src/database/subscriber'
+    entitiesDir: isProduction() ? 'dist/database/entity' : 'src/database/entity',
+    migrationsDir: isProduction() ? 'dist/database/migration' : 'src/database/migration',
+    subscribersDir: isProduction() ? 'dist/database/subscriber' : 'src/database/subscriber'
   }
 }

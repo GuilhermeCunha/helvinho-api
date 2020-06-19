@@ -5,7 +5,7 @@ import ProductsControllers from './controllers/ProductsControllers'
 import ClientsController from './controllers/ClientsController'
 import ParametersController from './controllers/ParametersController'
 import PoolsController from './controllers/PoolsController'
-import { Pool } from './database/entity/Pool'
+import AuthenticationsController from './controllers/AuthenticationsController'
 
 const routes = Router()
 

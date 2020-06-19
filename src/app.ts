@@ -30,7 +30,7 @@ class App {
       return res.json({ message: 'Seja bem vindo(a)' })
     })
 
-    this.express.use(AuthService.authorize, Routes)
+    this.express.use('', AuthService.authorize, Routes)
     // this.express.get('*', NotFoundRoute)
   }
 }
