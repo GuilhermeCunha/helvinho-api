@@ -1,35 +1,36 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm'
-import { validateOrReject, IsDefined, IsString } from 'class-validator'
+import { validateOrReject, IsDefined, IsString, IsOptional } from 'class-validator'
 
 @Entity()
-export class User extends BaseEntity {
+export class Employee extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
     @Column('text')
     @IsDefined()
     @IsString()
-    email: string;
+    name: string;
 
     @Column('text')
     @IsDefined()
     @IsString()
-    username: string;
+    address: string;
 
     @Column('text')
     @IsDefined()
     @IsString()
-    password: string;
+    category: string;
 
     @Column('text')
     @IsDefined()
     @IsString()
-    role: string;
+    cellphone: string;
 
-    // HOOKS
-    // HOOKS
-    // @BeforeInsert()
-    // @BeforeUpdate()
+    @Column('text')
+    @IsOptional()
+    @IsString()
+    secondCellphone: string;
+
     async validate (): Promise<void> {
       console.log('Validando...')
       await validateOrReject(this)

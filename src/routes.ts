@@ -1,28 +1,67 @@
-import { Router, Request, Response } from 'express'
-import { getRepository } from 'typeorm'
-import { User } from './database/entity/User'
+import { Router } from 'express'
+import UsersController from './controllers/UsersController'
+import EmployeesController from './controllers/EmployeesController'
+import ProductsControllers from './controllers/ProductsControllers'
+import ClientsController from './controllers/ClientsController'
+import ParametersController from './controllers/ParametersController'
+import PoolsController from './controllers/PoolsController'
+import { Pool } from './database/entity/Pool'
+
 const routes = Router()
 
-routes.get('/', (req: Request, res: Response): Response => {
-  const message = 'Okay'
-  return res.json(message)
-})
+routes.route('/users')
+  .get(UsersController.get)
+  .post(UsersController.post)
 
-routes.get('/users', async (req: Request, res: Response): Promise<Response> => {
-  const userRepository = getRepository(User)
-  const users = await userRepository.find()
-  return res.json(users)
-})
+routes.route('/users/:id')
+  .get(UsersController.getOne)
+  .put(UsersController.update)
+  .delete(UsersController.delete)
 
-routes.get('/users/create', async (req: Request, res: Response): Promise<Response> => {
-  const userRepository = getRepository(User)
-  const user = new User()
-  user.age = 19
-  user.firstName = 'guilherme'
-  user.lastName = 'cunha'
+routes.route('/employees')
+  .get(EmployeesController.get)
+  .post(EmployeesController.post)
 
-  const created_user = await userRepository.save(user)
-  return res.json(created_user)
-})
+routes.route('/employees/:id')
+  .get(EmployeesController.getOne)
+  .put(EmployeesController.update)
+  .delete(EmployeesController.delete)
+
+routes.route('/products')
+  .get(ProductsControllers.get)
+  .post(ProductsControllers.post)
+
+routes.route('/products/:id')
+  .get(ProductsControllers.getOne)
+  .put(ProductsControllers.update)
+  .delete(ProductsControllers.delete)
+
+routes.route('/clients')
+  .get(ClientsController.get)
+  .post(ClientsController.post)
+
+routes.route('/clients/:id')
+  .get(ClientsController.getOne)
+  .put(ClientsController.update)
+  .delete(ClientsController.delete)
+
+routes.route('/parameters')
+  .get(ParametersController.get)
+  .post(ParametersController.post)
+
+routes.route('/parameters/:id')
+  .get(ParametersController.getOne)
+  .put(ParametersController.update)
+  .delete(ParametersController.delete)
+
+routes.get('/clients/pools/:client_id', PoolsController.getByClient)
+routes.route('/pools')
+  .get(PoolsController.get)
+  .post(PoolsController.post)
+
+routes.route('/pools/:id')
+  .get(PoolsController.getOne)
+  .put(PoolsController.update)
+  .delete(PoolsController.delete)
 
 export default routes
