@@ -14,7 +14,7 @@ export class AuthenticationsController {
       }
     })
     if (user === undefined) {
-      return res.status(HTTP_CODES.NOT_FOUND).json()
+      return res.status(HTTP_CODES.NOT_FOUND).json({ message: 'Usuario nao encontrado' })
     }
 
     const success = await LoginService.login(user.password, password)
