@@ -8,6 +8,12 @@ import AuthenticationsController from './controllers/AuthenticationsController'
 
 moment.tz.setDefault('America/Sao_Paulo')
 
+const corsOptions: cors.CorsOptions = {
+  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'x-access-token', 'Authorization'],
+  methods: ['GET', 'DELETE', 'PUT', 'POST'],
+  origin: '*'
+}
+
 class App {
   public express: express.Application
 
@@ -21,7 +27,7 @@ class App {
 
   private middlewares (): void {
     this.express.use(express.json())
-    this.express.use(cors())
+    this.express.use(cors(corsOptions))
   }
 
   private routes (): void {
