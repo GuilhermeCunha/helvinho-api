@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm'
-import { validateOrReject, IsDefined, IsString, IsOptional } from 'class-validator'
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from 'typeorm'
+import { validateOrReject, IsDefined, IsString } from 'class-validator'
+import { ProductQuantity } from './ProductQuantity'
 
 @Entity()
 export class Product extends BaseEntity {
@@ -15,6 +16,9 @@ export class Product extends BaseEntity {
     @IsDefined()
     @IsString()
     unit: string;
+
+    @OneToMany(type => ProductQuantity, productQuantity => productQuantity.product)
+    productQuantities: ProductQuantity[]
 
     async validate (): Promise<void> {
       console.log('Validando...')

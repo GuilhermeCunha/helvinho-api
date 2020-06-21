@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne } from 'typeorm'
-import { validateOrReject, IsDefined, IsString, IsOptional, IsNumber, IsDataURI, IsDate, IsDateString } from 'class-validator'
+import { validateOrReject, IsOptional, IsNumber, IsDateString } from 'class-validator'
 import { Pool } from './Pool'
 
 @Entity()

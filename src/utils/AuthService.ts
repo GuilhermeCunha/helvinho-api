@@ -1,6 +1,6 @@
 import { NextFunction, Response, Request } from 'express'
 import * as jwt from 'jsonwebtoken'
-import { HTTP_CODES } from './contants'
+import { HTTP_CODES } from './Contants'
 
 interface User {
     id: string;

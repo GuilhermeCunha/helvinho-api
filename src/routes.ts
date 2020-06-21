@@ -5,7 +5,7 @@ import ProductsControllers from './controllers/ProductsControllers'
 import ClientsController from './controllers/ClientsController'
 import ParametersController from './controllers/ParametersController'
 import PoolsController from './controllers/PoolsController'
-import AuthenticationsController from './controllers/AuthenticationsController'
+import StocksController from './controllers/StocksController'
 
 const routes = Router()
 
@@ -63,5 +63,14 @@ routes.route('/pools/:id')
   .get(PoolsController.getOne)
   .put(PoolsController.update)
   .delete(PoolsController.delete)
+
+routes.route('/stocks')
+  .get(StocksController.get)
+  .post(StocksController.post)
+
+routes.route('/stocks/:id')
+  .get(StocksController.getOne)
+  .put(StocksController.update)
+  .delete(StocksController.delete)
 
 export default routes

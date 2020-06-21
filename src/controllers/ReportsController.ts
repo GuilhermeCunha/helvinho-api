@@ -1,27 +1,39 @@
 import { Response, Request } from 'express'
 import { HTTP_CODES } from '../utils/Contants'
-import { Client } from '../database/entity/Client'
+import { Report } from '../database/entity/Report'
+import { Pool } from '../database/entity/Pool'
 
-export class ClientsController {
+export class ReportsController {
   async get (req: Request, res: Response): Promise<Response | void> {
-    const clients = await Client.find()
-    return res.status(HTTP_CODES.OK).json(clients)
+    const reports = await Report.find({
+      relations: ['pool']
+    })
+    return res.status(HTTP_CODES.OK).json(reports)
   }
 
   async getOne (req: Request, res: Response): Promise<Response | void> {
     const { id } = req.params
 
-    const client = await Client.findOne(id)
-    if (client === undefined) {
+    const report = await Report.findOne(id)
+    if (report === undefined) {
       return res.status(HTTP_CODES.NOT_FOUND).json()
     }
-    return res.status(HTTP_CODES.OK).json(client)
+    return res.status(HTTP_CODES.OK).json(report)
   }
 
   async post (req: Request, res: Response): Promise<Response | void> {
-    let client = new Client()
-    client = Object.assign(client, req.body)
-    const errors = await client.validate()
+    const { pool_id } = req.body
+
+    const pool = await Pool.findOne(pool_id)
+    if (pool === undefined) {
+      return res.status(HTTP_CODES.NOT_FOUND).json()
+    }
+
+    let report = new Report()
+    report = Object.assign(report, req.body)
+    report.pool = pool
+
+    const errors = await report.validate()
       .then(() => null)
       .catch((err) => err)
 
@@ -30,26 +42,23 @@ export class ClientsController {
       return res.status(HTTP_CODES.BAD_REQUEST).json(errors)
     }
 
-    const created_client = await client.save()
-    return res.status(HTTP_CODES.CREATED).json(created_client)
+    const created_report = await report.save()
+    return res.status(HTTP_CODES.CREATED).json(created_report)
   }
 
   async update (req: Request, res: Response): Promise<Response | void> {
     const { id } = req.params
-    const { name, address, cnpj, cellphone, secondCellphone } = req.body
+    const { message, status } = req.body
 
-    const client = await Client.findOne(id)
-    if (client === undefined) {
+    const report = await Report.findOne(id)
+    if (report === undefined) {
       return res.status(HTTP_CODES.NOT_FOUND).json()
     }
 
-    client.name = name
-    client.address = address
-    client.cnpj = cnpj
-    client.cellphone = cellphone
-    client.secondCellphone = secondCellphone
+    report.message = message
+    report.status = status
 
-    const errors = await client.validate()
+    const errors = await report.validate()
       .then(() => null)
       .catch((err) => err)
 
@@ -57,20 +66,20 @@ export class ClientsController {
       return res.status(HTTP_CODES.BAD_REQUEST).json(errors)
     }
 
-    await client.save()
+    await report.save()
     return res.status(HTTP_CODES.OK_WITHOUT_CONTENT).json()
   }
 
   async delete (req: Request, res: Response): Promise<Response | void> {
     const { id } = req.params
 
-    const client = await Client.findOne(id)
-    if (client === undefined) {
+    const report = await Report.findOne(id)
+    if (report === undefined) {
       return res.status(HTTP_CODES.NOT_FOUND).json()
     }
 
-    await client.remove()
+    await report.remove()
     return res.status(HTTP_CODES.OK_WITHOUT_CONTENT).json()
   }
 }
-export default new ClientsController()
+export default new ReportsController()

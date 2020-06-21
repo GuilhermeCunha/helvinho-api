@@ -1,5 +1,5 @@
 import { Response, Request } from 'express'
-import { HTTP_CODES } from '../utils/contants'
+import { HTTP_CODES } from '../utils/Contants'
 import { Product } from '../database/entity/Product'
 
 export class ProductsController {

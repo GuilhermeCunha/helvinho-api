@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from 'typeorm'
 import { validateOrReject, IsDefined, IsString, IsOptional } from 'class-validator'
 import { Pool } from './Pool'
+import { Stock } from './Stock'
 
 @Entity()
 export class Client extends BaseEntity {
@@ -34,6 +35,10 @@ export class Client extends BaseEntity {
 
     @OneToMany(type => Pool, pool => pool.client)
     pools: Pool[]
+
+    @OneToMany(type => Stock, stock => stock.client)
+    @IsDefined()
+    stocks: Stock[]
 
     async validate (): Promise<void> {
       console.log('Validando...')
