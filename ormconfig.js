@@ -4,11 +4,18 @@ function isProduction () {
   return process.env.PRODUCTION === 'TRUE'
 }
 
-if (isProduction()) {
-  console.log('Configurando TypeORM para ler arquivos de ./dist')
-} else {
-  console.log('Configurando TypeORM para ler arquivos de ./src')
-}
+const appRoot = path.join(__dirname, isProduction() ? 'dist' : 'src')
+const extPattern = isProduction() ? '*.js' : '*.ts'
+
+const entitiesPath = path.join(appRoot, 'database', 'entity')
+const migrationsPath = path.join(appRoot, 'database', 'migration')
+const subscriberPath = path.join(appRoot, 'database', 'subscriber')
+
+console.log('Configurações TypeORM:')
+console.log(`-- Entities: ${path.join(entitiesPath, extPattern)}`)
+console.log(`-- Migrations: ${path.join(migrationsPath, extPattern)}`)
+console.log(`-- Subscriber: ${path.join(subscriberPath, extPattern)}`)
+
 module.exports = {
   host: process.env.DB_HOST,
   type: 'mysql',
@@ -19,18 +26,18 @@ module.exports = {
   synchronize: false,
   logging: false,
   entities: [
-    isProduction() ? path.join(__dirname, 'dist/database/entity/**/*.js}') : path.join(__dirname, 'src/database/entity/**/*.ts')
-
+    path.join(entitiesPath, extPattern)
   ],
   migrations: [
-    isProduction() ? path.join(__dirname, 'dist/database/migration/**/*.js') : path.join(__dirname, 'src/database/migration/**/*.ts')
+    path.join(migrationsPath, extPattern)
+
   ],
   subscribers: [
-    isProduction() ? path.join(__dirname, 'dist/database/subscriber/**/*.js') : path.join(__dirname, 'src/database/subscriber/**/*.ts')
+    path.join(subscriberPath, extPattern)
   ],
   cli: {
-    entitiesDir: isProduction() ? 'dist/database/entity' : 'src/database/entity',
-    migrationsDir: isProduction() ? 'dist/database/migration' : 'src/database/migration',
-    subscribersDir: isProduction() ? 'dist/database/subscriber' : 'src/database/subscriber'
+    entitiesDir: entitiesPath,
+    migrationsDir: migrationsPath,
+    subscribersDir: subscriberPath
   }
 }
