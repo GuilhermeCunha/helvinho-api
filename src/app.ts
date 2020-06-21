@@ -4,6 +4,7 @@ import * as cors from 'cors'
 import * as moment from 'moment-timezone'
 import Routes from './routes'
 import AuthenticationsController from './controllers/AuthenticationsController'
+import AuthService from './utils/AuthService'
 
 moment.tz.setDefault('America/Sao_Paulo')
 const allowedOrigins = ['https://helvinho-web.vercel.app', 'http://localhost:3333', 'http://localhost:3000']
@@ -46,7 +47,7 @@ class App {
     })
 
     this.express.use('',
-    // AuthService.authorize,
+      AuthService.authorize,
       Routes)
     // this.express.get('*', NotFoundRoute)
   }
