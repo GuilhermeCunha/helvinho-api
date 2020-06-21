@@ -1,6 +1,6 @@
 import { NextFunction, Response, Request } from 'express'
 import { User } from '../database/entity/User'
-import { HTTP_CODES } from '../utils/contants'
+import { HTTP_CODES } from '../utils/Contants'
 import LoginService from '../utils/LoginService'
 import AuthService from '../utils/AuthService'
 

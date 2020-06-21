@@ -1,22 +1,85 @@
-## Módulos
+### Dúvidas:
+- O estoque é por cliente ou por piscina? R: Por cliente.
+- Quais são todos os parâmetros das piscinas? R: Sempre os mesmos.
+- Os produtos usados nas piscinas são sempre os mesmos ? R: Sempre os mesmos.
 
-### Acompanhamento das piscinas
-<ul>
-    <li>Salvar os parâmetros das piscinas</li>
-    <li>Controle mensal dos parâmetros das piscinas</li>
-    <li>Gerar gráficos relacionados aos parâmetros das piscinas</li>
-    <li>Ter espaço para criação de relatórios referentes a quais atividades futuras são necessárias (Tendo um padrão, com logo da empresa, etc.)</li>
-</ul>
+### Módulos
+- Criação da estrutura da aplicação (Backend e Frontend iniciais).
+- CRUD das entidades sem relacionamento.
+- Gerenciamento de parâmetros.
+- Gerenciamento de Estoque.
+- Criação e exportação de relatórios de atividades.
+- Geração de gráficos (Dashboard).
 
-### Gerenciamento de Estoque
-<ul>
-    <li>Contabilizar quantidade de cloro usado</li>
-</ul>
+### Requisitos
+- Funcionar bem pelo Celular.
+- Guardar sempre os parâmetros das piscinas.
+- Guardar sempre estoques dos clientes.
+- Criar gráficos para analisar parâmetros das piscinas(Diário / Semanal / Mensal / Semestral / Anual).
+- Criar relatório de atividades a serem realizadas (Gerar arquivo padronizado para ser enviado por WhatsApp).
 
-### Regras de negócio
-    - Cada cliente pode ter mais de uma piscina.
-    - Uso prioritário pelo celular.
-    - Sistema fechado, tendo somente um nível de acesso.
+### EXTRAS
+- Enviar link para acesso ao relatório criado, e quando o operador acessar o link, marcar o relatório como visualizado.
+- Tela para análise de consumo de produtos em cada piscina.
+
+
+### Modelos
+- User OK
+  - email
+  - username
+  - password
+  - role
+  
+- Employee OK
+  - name
+  - address
+  - category ['Operador', 'Ajudante Operador']
+  - cellphone
+  - secondCellphone
+  
+- Report OK
+  - status
+  - message
+  
+- Parameter OK
+	- Cloro
+	- Ph
+	- Alcalinidade
+	- Ácido 
+	- Cianurico
+  
+- Product OK
+  - name
+  - unit (Litro, Kg, MG..)
+  
+- ProductQuantity OK
+  - product
+  - quantity
+  
+- Stock OK
+  - ProductQuantity[]
+  - date 
+  
+- Pool OK
+  - name
+  - Report[]
+  - Parameters[]
+  
+- Client OK
+  - name
+  - address
+  - cnpj
+  - cellphone
+  - secondCellphone
+  - Pool[]
+  - StockLifting[]
+
 
 ### Anotações
-    - Parâmetros: PH, Cloro, Alcalinidade, Cinurico.
+
+Parâmetros:
+	- Cloro
+	- Ph
+	- Alcalinidade
+	- Ácido 
+	- Cianurico

@@ -1,5 +1,5 @@
 import { Response, Request } from 'express'
-import { HTTP_CODES } from '../utils/contants'
+import { HTTP_CODES } from '../utils/Contants'
 import { getRepository } from 'typeorm'
 import { User } from '../database/entity/User'
 import LoginService from '../utils/LoginService'

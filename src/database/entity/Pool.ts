@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, ManyToOn
 import { validateOrReject, IsDefined, IsString } from 'class-validator'
 import { Parameter } from './Parameter'
 import { Client } from './Client'
+import { Report } from './Report'
 
 @Entity()
 export class Pool extends BaseEntity {
@@ -18,6 +19,9 @@ export class Pool extends BaseEntity {
 
     @ManyToOne(type => Client, client => client.pools, { onDelete: 'CASCADE', cascade: true })
     client: Client
+
+    @OneToMany(type => Report, report => report.pool)
+    reports: Report[]
 
     async validate (): Promise<void> {
       console.log('Validando...')
