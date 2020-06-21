@@ -1,5 +1,5 @@
 import { Response, Request } from 'express'
-import { HTTP_CODES } from '../utils/contants'
+import { HTTP_CODES } from '../utils/Contants'
 import { Parameter } from '../database/entity/Parameter'
 import { Pool } from '../database/entity/Pool'
 
