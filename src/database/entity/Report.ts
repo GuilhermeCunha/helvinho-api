@@ -19,7 +19,7 @@ export class Report extends BaseEntity {
     message: string;
 
     @Column({
-        type: 'text',
+      type: 'text'
     })
     @IsString()
     status: 'active' | 'done' | 'seen'
