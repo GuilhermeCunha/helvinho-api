@@ -55,6 +55,8 @@ routes.route('/parameters/:id')
   .delete(ParametersController.delete)
 
 routes.get('/clients/pools/:client_id', PoolsController.getByClient)
+routes.get('/clients/stocks/:client_id', StocksController.getByClient)
+
 routes.route('/pools')
   .get(PoolsController.get)
   .post(PoolsController.post)

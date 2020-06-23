@@ -72,7 +72,7 @@
   - cellphone
   - secondCellphone
   - Pool[]
-  - StockLifting[]
+  - Stocks[]
 
 
 ### Anotações

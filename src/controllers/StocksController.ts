@@ -11,6 +11,19 @@ interface productQuantityStore {
 }
 
 export class StocksController {
+  async getByClient (req: Request, res: Response): Promise<Response | void> {
+    const { client_id } = req.params
+    const stocks = await Stock.find({
+      relations: ['client', 'productQuantities'],
+      where: {
+        client: {
+          id: client_id
+        }
+      }
+    })
+    return res.status(HTTP_CODES.OK).json(stocks)
+  }
+
   async get (req: Request, res: Response): Promise<Response | void> {
     const stocks = await Stock.find({
       relations: ['client', 'productQuantities']
