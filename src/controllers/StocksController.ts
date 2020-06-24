@@ -14,11 +14,14 @@ export class StocksController {
   async getByClient (req: Request, res: Response): Promise<Response | void> {
     const { client_id } = req.params
     const stocks = await Stock.find({
-      relations: ['client', 'productQuantities'],
+      relations: ['productQuantities', 'productQuantities.product'],
       where: {
         client: {
           id: client_id
         }
+      },
+      order: {
+        date: 'DESC'
       }
     })
     return res.status(HTTP_CODES.OK).json(stocks)
