@@ -4,7 +4,7 @@ function isProduction () {
   return process.env.PRODUCTION === 'TRUE'
 }
 
-const appRoot = path.join(__dirname, isProduction() ? 'dist' : 'src')
+const appRoot = isProduction() ? 'dist' : 'src'
 const extPattern = isProduction() ? '*.js' : '*.ts'
 
 const entitiesPath = path.join(appRoot, 'database', 'entity')

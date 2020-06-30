@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, ManyToOne } from 'typeorm'
-import { validateOrReject, IsDefined, IsNumber, IsDateString } from 'class-validator'
+import { validateOrReject, IsDefined } from 'class-validator'
 import { ProductQuantity } from './ProductQuantity'
 import { Client } from './Client'
 

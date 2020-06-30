@@ -10,11 +10,11 @@ export class ProductQuantity extends BaseEntity {
 
     @ManyToOne(type => Product, product => product.productQuantities, { onDelete: 'CASCADE', cascade: true })
     @IsDefined()
-    product: Product
+    product: Product;
 
     @ManyToOne(type => Stock, stock => stock.productQuantities, { onDelete: 'CASCADE', cascade: true })
     @IsDefined()
-    stock: Stock
+    stock: Stock;
 
     @Column('double')
     @IsDefined()
