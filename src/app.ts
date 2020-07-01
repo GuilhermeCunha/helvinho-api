@@ -1,6 +1,6 @@
 // import routes from './routes'
 import * as express from 'express'
-// import * as cors from 'cors'
+import * as cors from 'cors'
 import * as moment from 'moment-timezone'
 import Routes from './routes'
 import AuthenticationsController from './controllers/AuthenticationsController'
@@ -23,7 +23,7 @@ class App {
   private middlewares (): void {
     this.express.use(CustomCors)
     this.express.use(express.json())
-    // this.express.use(cors(corsOptions))
+    this.express.use(cors({ origin: true, credentials: true }))
   }
 
   private routes (): void {
