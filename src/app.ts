@@ -1,8 +1,8 @@
-import * as express from 'express'
-import * as cors from 'cors'
-import * as moment from 'moment-timezone'
+import express from 'express'
+import cors from 'cors'
+import moment from 'moment-timezone'
 import Routes from './routes'
-import AuthenticationsController from './controllers/AuthenticationsController'
+import AuthenticationsController from '@controllers/AuthenticationsController'
 import AuthService from './utils/AuthService'
 
 moment.tz.setDefault('America/Sao_Paulo')

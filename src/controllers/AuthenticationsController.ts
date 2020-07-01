@@ -6,7 +6,7 @@ import AuthService from '../utils/AuthService'
 import { ResetPassword } from '../database/entity/ResetPassword'
 import * as crypto from 'crypto'
 import EmailService from '../utils/EmailServer'
-import moment = require('moment')
+import moment from 'moment'
 
 export class AuthenticationsController {
   async login (req: Request, res: Response, next: NextFunction): Promise<Response | void> {
