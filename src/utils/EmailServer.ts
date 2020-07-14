@@ -1,5 +1,5 @@
 import * as nodemailer from 'nodemailer'
-import Mail = require('nodemailer/lib/mailer');
+import Mail from 'nodemailer/lib/mailer'
 require('dotenv/config')
 
 class EmailService {
