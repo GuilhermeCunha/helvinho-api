@@ -56,6 +56,7 @@ routes.route('/parameters/:id')
 
 routes.get('/clients/pools/:client_id', PoolsController.getByClient)
 routes.get('/clients/stocks/:client_id', StocksController.getByClient)
+routes.get('/clients/parameters/:client_id', ParametersController.getByClient)
 
 routes.route('/pools')
   .get(PoolsController.get)

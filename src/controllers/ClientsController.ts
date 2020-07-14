@@ -5,7 +5,7 @@ import { Client } from '../database/entity/Client'
 export class ClientsController {
   async get (req: Request, res: Response): Promise<Response | void> {
     const clients = await Client.find({
-      relations: ["pools"]
+      relations: ['pools']
     })
     return res.status(HTTP_CODES.OK).json(clients)
   }
