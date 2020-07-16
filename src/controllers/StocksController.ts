@@ -4,6 +4,7 @@ import { Stock } from '../database/entity/Stock'
 import { ProductQuantity } from '../database/entity/ProductQuantity'
 import { Product } from '../database/entity/Product'
 import { Client } from '../database/entity/Client'
+import moment from 'moment'
 
 interface productQuantityStore {
     productId: string;
@@ -53,7 +54,7 @@ export class StocksController {
     const client = await Client.findOne(client_id)
     stock.client = client
     stock.productQuantities = []
-    stock.date = new Date(date)
+    stock.date = moment(date, 'DD-MM-YYYY').toDate()
 
     for (const pq of productQuantities) {
       const productQuantity = new ProductQuantity()
