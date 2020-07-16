@@ -1,11 +1,13 @@
 import express from 'express'
 import cors from 'cors'
-import moment from 'moment-timezone'
+// import moment from 'moment-timezone'
 import Routes from './routes'
 import AuthenticationsController from '@controllers/AuthenticationsController'
 import AuthService from './utils/AuthService'
-
-moment.tz.setDefault('America/Sao_Paulo')
+import moment from 'moment'
+import portugueseLocale from 'moment/locale/pt-br'
+moment.updateLocale('pt-br', portugueseLocale)
+// moment.tz.setDefault('America/Sao_Paulo')
 
 class App {
   public express: express.Application

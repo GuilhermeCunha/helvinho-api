@@ -4,6 +4,7 @@ import { Stock } from '../database/entity/Stock'
 import { ProductQuantity } from '../database/entity/ProductQuantity'
 import { Product } from '../database/entity/Product'
 import { Client } from '../database/entity/Client'
+import moment from 'moment'
 
 interface productQuantityStore {
     productId: string;
@@ -24,6 +25,7 @@ export class StocksController {
         date: 'DESC'
       }
     })
+
     return res.status(HTTP_CODES.OK).json(stocks)
   }
 
@@ -46,12 +48,13 @@ export class StocksController {
 
   async post (req: Request, res: Response): Promise<Response | void> {
     const productQuantities:productQuantityStore[] = req.body.productQuantities
-    const { client_id } = req.body
+    const { client_id, date } = req.body
 
     const stock = new Stock()
     const client = await Client.findOne(client_id)
     stock.client = client
     stock.productQuantities = []
+    stock.date = moment(date, 'DD-MM-YYYY').toDate()
 
     for (const pq of productQuantities) {
       const productQuantity = new ProductQuantity()
@@ -59,7 +62,6 @@ export class StocksController {
       productQuantity.value = pq.value
       stock.productQuantities.push(await productQuantity.save())
     }
-
     const errors = await stock.validate()
       .then(() => null)
       .catch((err) => err)
