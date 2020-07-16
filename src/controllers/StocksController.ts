@@ -24,6 +24,7 @@ export class StocksController {
         date: 'DESC'
       }
     })
+
     return res.status(HTTP_CODES.OK).json(stocks)
   }
 
@@ -46,12 +47,13 @@ export class StocksController {
 
   async post (req: Request, res: Response): Promise<Response | void> {
     const productQuantities:productQuantityStore[] = req.body.productQuantities
-    const { client_id } = req.body
+    const { client_id, date } = req.body
 
     const stock = new Stock()
     const client = await Client.findOne(client_id)
     stock.client = client
     stock.productQuantities = []
+    stock.date = new Date(date)
 
     for (const pq of productQuantities) {
       const productQuantity = new ProductQuantity()
@@ -59,7 +61,6 @@ export class StocksController {
       productQuantity.value = pq.value
       stock.productQuantities.push(await productQuantity.save())
     }
-
     const errors = await stock.validate()
       .then(() => null)
       .catch((err) => err)

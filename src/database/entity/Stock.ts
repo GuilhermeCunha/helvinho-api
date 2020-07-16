@@ -16,7 +16,7 @@ export class Stock extends BaseEntity {
     client: Client
 
     @Column({
-      type: 'date'
+      type: 'datetime'
     })
     // @IsDateString()
     date: Date;

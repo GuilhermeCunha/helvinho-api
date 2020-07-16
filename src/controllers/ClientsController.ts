@@ -1,6 +1,6 @@
-import { Response, Request } from 'express'
 import { HTTP_CODES } from '../utils/Contants'
 import { Client } from '../database/entity/Client'
+import { Request, Response } from 'express'
 
 export class ClientsController {
   async get (req: Request, res: Response): Promise<Response | void> {
