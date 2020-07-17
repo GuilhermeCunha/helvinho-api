@@ -4,13 +4,13 @@ import { Parameter } from '../database/entity/Parameter'
 import { Pool } from '../database/entity/Pool'
 
 export class ParametersController {
-  async getByClient (req: Request, res: Response): Promise<Response | void> {
-    const { client_id } = req.params
+  async getByPool (req: Request, res: Response): Promise<Response | void> {
+    const { pool_id } = req.params
     const parameters = await Parameter.find({
       relations: ['pool'],
       where: {
         pool: {
-          id: client_id
+          id: pool_id
         }
       }
     })
