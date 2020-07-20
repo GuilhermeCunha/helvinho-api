@@ -2,6 +2,7 @@ import { Response, Request } from 'express'
 import { HTTP_CODES } from '../utils/Contants'
 import { Parameter } from '../database/entity/Parameter'
 import { Pool } from '../database/entity/Pool'
+import moment from 'moment'
 
 export class ParametersController {
   async getByPool (req: Request, res: Response): Promise<Response | void> {
@@ -35,7 +36,7 @@ export class ParametersController {
   }
 
   async post (req: Request, res: Response): Promise<Response | void> {
-    const { pool_id } = req.body
+    const { pool_id, date } = req.body
 
     const pool = await Pool.findOne(pool_id)
     if (pool === undefined) {
@@ -45,7 +46,7 @@ export class ParametersController {
     let parameter = new Parameter()
     parameter = Object.assign(parameter, req.body)
     parameter.pool = pool
-
+    parameter.date = moment(date, 'DD-MM-YYYY').toDate()
     const errors = await parameter.validate()
       .then(() => null)
       .catch((err) => err)
