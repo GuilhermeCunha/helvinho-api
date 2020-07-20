@@ -51,7 +51,7 @@ export class Parameter extends BaseEntity {
     pool: Pool;
 
     @Column({
-      type: 'date'
+      type: 'datetime'
     })
     // @IsDateString()
     date: Date;
