@@ -53,7 +53,7 @@ export class Parameter extends BaseEntity {
     @Column({
       type: 'date'
     })
-    @IsDateString()
+    // @IsDateString()
     date: Date;
 
     async validate (): Promise<void> {
