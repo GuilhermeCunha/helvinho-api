@@ -6,7 +6,10 @@ export class User extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column('text')
+    @Column({
+      unique: true,
+      length: 100
+    })
     @IsDefined()
     @IsString()
     email: string;

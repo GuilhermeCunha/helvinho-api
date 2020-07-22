@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, Unique } from 'typeorm'
 import { validateOrReject, IsDefined, IsString } from 'class-validator'
 import { ProductQuantity } from './ProductQuantity'
 
@@ -7,7 +7,10 @@ export class Product extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column('text')
+    @Column({
+      unique: true,
+      length: 100
+    })
     @IsDefined()
     @IsString()
     name: string;

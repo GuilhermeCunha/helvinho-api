@@ -6,7 +6,10 @@ export class Employee extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column('text')
+    @Column({
+      unique: true,
+      length: 100
+    })
     @IsDefined()
     @IsString()
     name: string;

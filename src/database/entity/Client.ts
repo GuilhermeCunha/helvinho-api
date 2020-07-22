@@ -34,11 +34,10 @@ export class Client extends BaseEntity {
     secondCellphone: string;
 
     @OneToMany(type => Pool, pool => pool.client)
-    pools: Pool[]
+    pools: Pool[];
 
     @OneToMany(type => Stock, stock => stock.client)
-    @IsDefined()
-    stocks: Stock[]
+    stocks: Stock[];
 
     async validate (): Promise<void> {
       console.log('Validando...')
