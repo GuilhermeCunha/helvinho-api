@@ -52,9 +52,20 @@ export class StocksController {
 
     const stock = new Stock()
     const client = await Client.findOne(client_id)
+    const formatedDate = moment(date, 'DD-MM-YYYY').toDate()
+    const oldStock = await Stock.findOne({
+      where: {
+        client: client,
+        date: formatedDate
+      }
+    })
+    if (oldStock !== undefined) {
+      return res.status(HTTP_CODES.CREATED).json(oldStock)
+    }
+
     stock.client = client
     stock.productQuantities = []
-    stock.date = moment(date, 'DD-MM-YYYY').toDate()
+    stock.date = formatedDate
 
     for (const pq of productQuantities) {
       const productQuantity = new ProductQuantity()
