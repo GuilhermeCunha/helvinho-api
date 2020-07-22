@@ -7,8 +7,7 @@ export class User extends BaseEntity {
     id: string;
 
     @Column({
-      unique: true,
-      length: 100
+      type: 'text'
     })
     @IsDefined()
     @IsString()
