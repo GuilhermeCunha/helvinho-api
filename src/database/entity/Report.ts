@@ -28,9 +28,8 @@ export class Report extends BaseEntity {
     // @ManyToOne(type => Pool, pool => pool.reports, { onDelete: 'CASCADE', cascade: true })
     // @IsDefined()
     // pool: Pool;
-    @OneToOne(type => Client)
-    @JoinColumn()
-    client: Client;
+    @ManyToOne(type => Client, client => client.reports, { onDelete: 'CASCADE', cascade: true })
+    client: Client
 
     @ManyToMany(type => Pool, pool => pool.reports)
     @JoinTable()

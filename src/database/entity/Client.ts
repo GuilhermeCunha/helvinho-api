@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from 't
 import { validateOrReject, IsDefined, IsString, IsOptional } from 'class-validator'
 import { Pool } from './Pool'
 import { Stock } from './Stock'
+import { Report } from './Report'
 
 @Entity()
 export class Client extends BaseEntity {
@@ -35,6 +36,9 @@ export class Client extends BaseEntity {
 
     @OneToMany(type => Pool, pool => pool.client)
     pools: Pool[];
+
+    @OneToMany(type => Report, report => report.client)
+    reports: Report[]
 
     @OneToMany(type => Stock, stock => stock.client)
     stocks: Stock[];

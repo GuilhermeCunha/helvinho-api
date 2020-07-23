@@ -81,11 +81,11 @@ routes.route('/stocks/:id')
 
 routes.route('/reports')
   .get(ReportsController.get)
-  .post(StocksController.post)
+  .post(ReportsController.post)
 
 routes.route('/reports/:id')
-  .get(StocksController.getOne)
-  .put(StocksController.update)
-  .delete(StocksController.delete)
+  .get(ReportsController.getOne)
+  .put(ReportsController.update)
+  .delete(ReportsController.delete)
 
 export default routes
