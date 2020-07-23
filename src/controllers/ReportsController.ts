@@ -37,12 +37,11 @@ export class ReportsController {
 
   async post (req: Request, res: Response): Promise<Response | void> {
     const { pool_ids, client_id } = req.body
-
-    const pools = await pool_ids.map(async (pool_id) => {
-      const pool = await Pool.findOne(pool_id)
-      return pool
-    })
-
+    console.log(pool_ids)
+    let pools = []
+    if (pool_ids.length > 0) {
+      pools = await Pool.findByIds(pool_ids)
+    }
     const client = await Client.findOne(client_id)
     let report = new Report()
     report = Object.assign(report, req.body)
