@@ -2,11 +2,25 @@ import { Response, Request } from 'express'
 import { HTTP_CODES } from '../utils/Contants'
 import { Report } from '../database/entity/Report'
 import { Pool } from '../database/entity/Pool'
+import { Client } from '@entities/Client'
 
 export class ReportsController {
+  async getByClient (req: Request, res: Response): Promise<Response | void> {
+    const { client_id } = req.params
+    const reports = await Report.find({
+      relations: ['pools', 'client'],
+      where: {
+        client: {
+          id: client_id
+        }
+      }
+    })
+    return res.status(HTTP_CODES.OK).json(reports)
+  }
+
   async get (req: Request, res: Response): Promise<Response | void> {
     const reports = await Report.find({
-      relations: ['pool']
+      relations: ['pools']
     })
     return res.status(HTTP_CODES.OK).json(reports)
   }
@@ -22,16 +36,22 @@ export class ReportsController {
   }
 
   async post (req: Request, res: Response): Promise<Response | void> {
-    const { pool_id } = req.body
+    const { pool_ids, client_id } = req.body
 
-    const pool = await Pool.findOne(pool_id)
-    if (pool === undefined) {
-      return res.status(HTTP_CODES.NOT_FOUND).json()
-    }
+    const pools = await pool_ids.map(async (pool_id) => {
+      const pool = await Pool.findOne(pool_id)
+      return pool
+    })
 
+    const client = await Client.findOne(client_id)
     let report = new Report()
     report = Object.assign(report, req.body)
-    report.pool = pool
+    report.status = 'active'
+    report.client = client
+
+    if (pools.length > 0) {
+      report.pools = pools
+    }
 
     const errors = await report.validate()
       .then(() => null)
