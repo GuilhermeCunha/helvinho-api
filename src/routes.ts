@@ -6,6 +6,7 @@ import ClientsController from './controllers/ClientsController'
 import ParametersController from './controllers/ParametersController'
 import PoolsController from './controllers/PoolsController'
 import StocksController from './controllers/StocksController'
+import ReportsController from '@controllers/ReportsController'
 
 const routes = Router()
 
@@ -56,6 +57,7 @@ routes.route('/parameters/:id')
 
 routes.get('/clients/pools/:client_id', PoolsController.getByClient)
 routes.get('/clients/stocks/:client_id', StocksController.getByClient)
+routes.get('/clients/reports/:client_id', ReportsController.getByClient)
 
 routes.route('/pools')
   .get(PoolsController.get)
@@ -73,6 +75,15 @@ routes.route('/stocks')
   .post(StocksController.post)
 
 routes.route('/stocks/:id')
+  .get(StocksController.getOne)
+  .put(StocksController.update)
+  .delete(StocksController.delete)
+
+routes.route('/reports')
+  .get(ReportsController.get)
+  .post(StocksController.post)
+
+routes.route('/reports/:id')
   .get(StocksController.getOne)
   .put(StocksController.update)
   .delete(StocksController.delete)
