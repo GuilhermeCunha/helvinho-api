@@ -35,6 +35,12 @@ export class Report extends BaseEntity {
     @JoinTable()
     pools?: Pool[];
 
+    @Column({
+      type: 'datetime'
+    })
+    // @IsDateString()
+    date: Date;
+
     async validate (): Promise<void> {
       console.log('Validando...')
       await validateOrReject(this)

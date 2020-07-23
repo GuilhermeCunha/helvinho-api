@@ -3,6 +3,7 @@ import { HTTP_CODES } from '../utils/Contants'
 import { Report } from '../database/entity/Report'
 import { Pool } from '../database/entity/Pool'
 import { Client } from '@entities/Client'
+import moment from 'moment'
 
 export class ReportsController {
   async getByClient (req: Request, res: Response): Promise<Response | void> {
@@ -36,18 +37,17 @@ export class ReportsController {
   }
 
   async post (req: Request, res: Response): Promise<Response | void> {
-    const { pool_ids, client_id } = req.body
-    console.log(pool_ids)
+    const { pool_ids, client_id, message, date } = req.body
     let pools = []
     if (pool_ids.length > 0) {
       pools = await Pool.findByIds(pool_ids)
     }
     const client = await Client.findOne(client_id)
-    let report = new Report()
-    report = Object.assign(report, req.body)
+    const report = new Report()
     report.status = 'active'
     report.client = client
-
+    report.message = message
+    report.date = moment(date, 'DD-MM-YYYY').toDate()
     if (pools.length > 0) {
       report.pools = pools
     }
