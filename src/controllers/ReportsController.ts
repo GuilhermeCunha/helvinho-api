@@ -6,6 +6,13 @@ import { Client } from '@entities/Client'
 import moment from 'moment'
 
 export class ReportsController {
+  async generateDocument (req: Request, res: Response): Promise<Response | void> {
+    const { pools, clientName, message } = req.body
+    let { date } = req.body
+    date = moment(date, 'DD-MM-YYYY').toDate()
+    return res.status(HTTP_CODES.CREATED).json(date)
+  }
+
   async getByClient (req: Request, res: Response): Promise<Response | void> {
     const { client_id } = req.params
     const reports = await Report.find({

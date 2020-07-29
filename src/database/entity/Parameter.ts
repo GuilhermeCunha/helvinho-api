@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne } from 'typeorm'
-import { validateOrReject, IsOptional, IsNumber, IsDateString } from 'class-validator'
+import { validateOrReject, IsOptional, IsNumber, IsDateString, IsString } from 'class-validator'
 import { Pool } from './Pool'
 
 @Entity()
@@ -7,45 +7,25 @@ export class Parameter extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({
-      type: 'double',
-      default: 0
-    })
-    @IsNumber()
+    @Column({ default: 'NAO MEDIDO' })
+    @IsString()
     @IsOptional()
-    chlorine: number;
+    chlorine: String;
 
-    @Column({
-      type: 'double',
-      default: 0
-    })
-    @IsNumber()
+    @Column({ default: 'NAO MEDIDO' })
+    @IsString()
     @IsOptional()
-    ph: number;
+    ph: String;
 
-    @Column({
-      type: 'double',
-      default: 0
-    })
-    @IsNumber()
+    @Column({ default: 'NAO MEDIDO' })
+    @IsString()
     @IsOptional()
-    alkalinity: number;
+    alkalinity: String;
 
-    @Column({
-      type: 'double',
-      default: 0
-    })
-    @IsNumber()
+    @Column({ default: 'NAO MEDIDO' })
+    @IsString()
     @IsOptional()
-    acid: number;
-
-    @Column({
-      type: 'double',
-      default: 0
-    })
-    @IsNumber()
-    @IsOptional()
-    cyanuric: number;
+    cyanuric: String;
 
     @ManyToOne(type => Pool, pool => pool.parameters, { onDelete: 'CASCADE', cascade: true })
     pool: Pool;

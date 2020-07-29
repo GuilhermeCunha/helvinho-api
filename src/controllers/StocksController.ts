@@ -5,18 +5,41 @@ import { ProductQuantity } from '../database/entity/ProductQuantity'
 import { Product } from '../database/entity/Product'
 import { Client } from '../database/entity/Client'
 import moment from 'moment'
+import { Between } from 'typeorm'
+import { getFirstAndLastDays } from 'src/utils/DateUtils'
 
 interface productQuantityStore {
     productId: string;
     value: number;
 }
+interface GenerateDocumentParameters {
+  product_id?: String;
+  client_id: String;
+}
+
+interface FilterDateParameters {
+  from?: Date;
+  to?: Date;
+}
 
 export class StocksController {
   async getByClient (req: Request, res: Response): Promise<Response | void> {
     const { client_id } = req.params
+    let { from, to }: FilterDateParameters = req.query
+    if (!from || !to) {
+      const { first, last } = getFirstAndLastDays()
+      if (!from) {
+        from = first
+      }
+      if (!to) {
+        to = last
+      }
+    }
+
     const stocks = await Stock.find({
       relations: ['productQuantities', 'productQuantities.product'],
       where: {
+        date: Between(from, to),
         client: {
           id: client_id
         }

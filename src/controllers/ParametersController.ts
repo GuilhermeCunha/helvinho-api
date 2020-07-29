@@ -3,13 +3,31 @@ import { HTTP_CODES } from '../utils/Contants'
 import { Parameter } from '../database/entity/Parameter'
 import { Pool } from '../database/entity/Pool'
 import moment from 'moment'
+import { getFirstAndLastDays } from 'src/utils/DateUtils'
+import { Between } from 'typeorm'
+interface FilterDateParameters {
+  from?: Date;
+  to?: Date;
+}
 
 export class ParametersController {
   async getByPool (req: Request, res: Response): Promise<Response | void> {
     const { pool_id } = req.params
+    let { from, to }: FilterDateParameters = req.query
+    if (!from || !to) {
+      const { first, last } = getFirstAndLastDays()
+      if (!from) {
+        from = first
+      }
+      if (!to) {
+        to = last
+      }
+    }
+
     const parameters = await Parameter.find({
       relations: ['pool'],
       where: {
+        date: Between(from, to),
         pool: {
           id: pool_id
         }
@@ -36,15 +54,18 @@ export class ParametersController {
   }
 
   async post (req: Request, res: Response): Promise<Response | void> {
-    const { pool_id, date } = req.body
+    const { pool_id, date, chlorine, ph, alkalinity, cyanuric } = req.body
 
     const pool = await Pool.findOne(pool_id)
     if (pool === undefined) {
       return res.status(HTTP_CODES.NOT_FOUND).json()
     }
 
-    let parameter = new Parameter()
-    parameter = Object.assign(parameter, req.body)
+    const parameter = new Parameter()
+    parameter.chlorine = chlorine
+    parameter.ph = ph
+    parameter.alkalinity = alkalinity
+    parameter.cyanuric = cyanuric
     parameter.pool = pool
     parameter.date = moment(date, 'DD-MM-YYYY').toDate()
     const errors = await parameter.validate()
@@ -62,7 +83,7 @@ export class ParametersController {
 
   async update (req: Request, res: Response): Promise<Response | void> {
     const { id } = req.params
-    const { chlorine, ph, alkalinity, acid, cyanuric } = req.body
+    const { chlorine, ph, alkalinity, cyanuric } = req.body
 
     const parameter = await Parameter.findOne(id)
     if (parameter === undefined) {
@@ -72,7 +93,6 @@ export class ParametersController {
     parameter.chlorine = chlorine
     parameter.ph = ph
     parameter.alkalinity = alkalinity
-    parameter.acid = acid
     parameter.cyanuric = cyanuric
 
     const errors = await parameter.validate()
