@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne } from 'typeorm'
-import { validateOrReject, IsOptional, IsNumber, IsDateString, IsString } from 'class-validator'
+import { validateOrReject, IsOptional, IsNumber, IsDatestring, IsString } from 'class-validator'
 import { Pool } from './Pool'
 
 @Entity()
@@ -10,22 +10,22 @@ export class Parameter extends BaseEntity {
     @Column({ default: 'NAO MEDIDO' })
     @IsString()
     @IsOptional()
-    chlorine: String;
+    chlorine: string;
 
     @Column({ default: 'NAO MEDIDO' })
     @IsString()
     @IsOptional()
-    ph: String;
+    ph: string;
 
     @Column({ default: 'NAO MEDIDO' })
     @IsString()
     @IsOptional()
-    alkalinity: String;
+    alkalinity: string;
 
     @Column({ default: 'NAO MEDIDO' })
     @IsString()
     @IsOptional()
-    cyanuric: String;
+    cyanuric: string;
 
     @ManyToOne(type => Pool, pool => pool.parameters, { onDelete: 'CASCADE', cascade: true })
     pool: Pool;
@@ -33,7 +33,7 @@ export class Parameter extends BaseEntity {
     @Column({
       type: 'datetime'
     })
-    // @IsDateString()
+    // @IsDatestring()
     date: Date;
 
     async validate (): Promise<void> {
