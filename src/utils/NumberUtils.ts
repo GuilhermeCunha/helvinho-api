@@ -1,7 +1,8 @@
-export function isNumber (value: string | number): boolean {
-  return ((value != null) &&
-           (value !== '') &&
-           !isNaN(Number(value.toString())))
+class NumberUtils {
+  isNumber (value: string | number): boolean {
+    return ((value != null) &&
+             (value !== '') &&
+             !isNaN(Number(value.toString())))
+  }
 }
-
-export default {}
+export default new NumberUtils()

@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne } from 'typeorm'
-import { validateOrReject, IsOptional, IsNumber, IsDatestring, IsString } from 'class-validator'
+import { validateOrReject, IsOptional, IsString } from 'class-validator'
 import { Pool } from './Pool'
 
 @Entity()
@@ -7,22 +7,34 @@ export class Parameter extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ default: 'NAO MEDIDO' })
+    @Column({
+      type: 'nvarchar',
+      default: 'NAO MEDIDO'
+    })
     @IsString()
     @IsOptional()
     chlorine: string;
 
-    @Column({ default: 'NAO MEDIDO' })
+    @Column({
+      type: 'nvarchar',
+      default: 'NAO MEDIDO'
+    })
     @IsString()
     @IsOptional()
     ph: string;
 
-    @Column({ default: 'NAO MEDIDO' })
+    @Column({
+      type: 'nvarchar',
+      default: 'NAO MEDIDO'
+    })
     @IsString()
     @IsOptional()
     alkalinity: string;
 
-    @Column({ default: 'NAO MEDIDO' })
+    @Column({
+      type: 'nvarchar',
+      default: 'NAO MEDIDO'
+    })
     @IsString()
     @IsOptional()
     cyanuric: string;

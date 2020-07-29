@@ -1,13 +1,12 @@
 import { Response, Request } from 'express'
-import { HTTP_CODES } from '../utils/Contants'
-import { Stock } from '../database/entity/Stock'
-import { ProductQuantity } from '../database/entity/ProductQuantity'
-import { Product } from '../database/entity/Product'
-import { Client } from '../database/entity/Client'
+import { HTTP_CODES } from '@utils/Contants'
+import { Stock } from '@entities/Stock'
+import { ProductQuantity } from '@entities/ProductQuantity'
+import { Product } from '@entities/Product'
+import { Client } from '@entities/Client'
 import moment from 'moment'
 import { Between } from 'typeorm'
-import { getFirstAndLastDays } from 'src/utils/DateUtils'
-
+import DateUtils from '@utils/DateUtils'
 interface productQuantityStore {
     productId: string;
     value: number;
@@ -27,7 +26,7 @@ export class StocksController {
     const { client_id } = req.params
     let { from, to }: FilterDateParameters = req.query
     if (!from || !to) {
-      const { first, last } = getFirstAndLastDays()
+      const { first, last } = DateUtils.getFirstAndLastDays()
       if (!from) {
         from = first
       }

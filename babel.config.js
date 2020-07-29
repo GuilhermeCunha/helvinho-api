@@ -15,9 +15,11 @@ module.exports = {
     ["@babel/plugin-proposal-class-properties", { loose: true }],
     '@babel/plugin-transform-runtime',
     ['module-resolver', {
+      // "root": ["./src"],
       alias: {
         '@entities': './src/database/entity',
         '@controllers': './src/controllers',
+        '@utils': './src/utils',
       }
     }]
   ],
