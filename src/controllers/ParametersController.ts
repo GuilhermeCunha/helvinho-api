@@ -5,6 +5,7 @@ import { Pool } from '@entities/Pool'
 import moment from 'moment'
 import DateUtils from '@utils/DateUtils'
 import { Between } from 'typeorm'
+import NumberUtils from '@utils/NumberUtils'
 interface FilterDateParameters {
   from?: Date;
   to?: Date;
@@ -62,10 +63,22 @@ export class ParametersController {
     }
 
     const parameter = new Parameter()
-    parameter.chlorine = chlorine
-    parameter.ph = ph
-    parameter.alkalinity = alkalinity
-    parameter.cyanuric = cyanuric
+    if (NumberUtils.isNumber(chlorine)) {
+      parameter.chlorine = chlorine
+    }
+
+    if (NumberUtils.isNumber(ph)) {
+      parameter.ph = ph
+    }
+
+    if (NumberUtils.isNumber(alkalinity)) {
+      parameter.alkalinity = alkalinity
+    }
+
+    if (NumberUtils.isNumber(cyanuric)) {
+      parameter.cyanuric = cyanuric
+    }
+
     parameter.pool = pool
     parameter.date = moment(date, 'DD-MM-YYYY').toDate()
     const errors = await parameter.validate()
