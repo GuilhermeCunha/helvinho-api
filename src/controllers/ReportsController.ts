@@ -1,7 +1,7 @@
 import { Response, Request } from 'express'
-import { HTTP_CODES } from '../utils/Contants'
-import { Report } from '../database/entity/Report'
-import { Pool } from '../database/entity/Pool'
+import { HTTP_CODES } from '@utils/Contants'
+import { Report } from '@entities/Report'
+import { Pool } from '@entities/Pool'
 import { Client } from '@entities/Client'
 import moment from 'moment'
 

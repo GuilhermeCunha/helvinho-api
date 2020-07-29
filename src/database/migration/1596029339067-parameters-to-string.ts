@@ -1,9 +1,11 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class parametersToString1596027292048 implements MigrationInterface {
-    name = 'parametersToString1596027292048'
+export class parametersToString1596029339067 implements MigrationInterface {
+    name = 'parametersToString1596029339067'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query("ALTER TABLE `parameter` DROP COLUMN `acid`");
+        await queryRunner.query("ALTER TABLE `parameter` DROP COLUMN `chlorine`");
         await queryRunner.query("ALTER TABLE `parameter` ADD `chlorine` varchar(255) NOT NULL DEFAULT 'NAO MEDIDO'");
         await queryRunner.query("ALTER TABLE `parameter` DROP COLUMN `ph`");
         await queryRunner.query("ALTER TABLE `parameter` ADD `ph` varchar(255) NOT NULL DEFAULT 'NAO MEDIDO'");
@@ -23,6 +25,8 @@ export class parametersToString1596027292048 implements MigrationInterface {
         await queryRunner.query("ALTER TABLE `parameter` DROP COLUMN `ph`");
         await queryRunner.query("ALTER TABLE `parameter` ADD `ph` double(22) NOT NULL DEFAULT '0'");
         await queryRunner.query("ALTER TABLE `parameter` DROP COLUMN `chlorine`");
+        await queryRunner.query("ALTER TABLE `parameter` ADD `chlorine` double(22) NOT NULL DEFAULT '0'");
+        await queryRunner.query("ALTER TABLE `parameter` ADD `acid` double(22) NOT NULL DEFAULT '0'");
     }
 
 }

@@ -1,9 +1,9 @@
 import { Response, Request } from 'express'
-import { HTTP_CODES } from '../utils/Contants'
-import { Parameter } from '../database/entity/Parameter'
-import { Pool } from '../database/entity/Pool'
+import { HTTP_CODES } from '@utils/Contants'
+import { Parameter } from '@entities/Parameter'
+import { Pool } from '@entities/Pool'
 import moment from 'moment'
-import { getFirstAndLastDays } from 'src/utils/DateUtils'
+import DateUtils from '@utils/DateUtils'
 import { Between } from 'typeorm'
 interface FilterDateParameters {
   from?: Date;
@@ -15,7 +15,7 @@ export class ParametersController {
     const { pool_id } = req.params
     let { from, to }: FilterDateParameters = req.query
     if (!from || !to) {
-      const { first, last } = getFirstAndLastDays()
+      const { first, last } = DateUtils.getFirstAndLastDays()
       if (!from) {
         from = first
       }
