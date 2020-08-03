@@ -24,21 +24,13 @@ interface FilterDateParameters {
 export class StocksController {
   async getByClient (req: Request, res: Response): Promise<Response | void> {
     const { client_id } = req.params
-    let { from, to }: FilterDateParameters = req.query
-    if (!from || !to) {
-      const { first, last } = DateUtils.getFirstAndLastDays()
-      if (!from) {
-        from = first
-      }
-      if (!to) {
-        to = last
-      }
-    }
+    const { from, to }: FilterDateParameters = req.query
+    const filters = DateUtils.handleDateFilters(from, to)
 
     const stocks = await Stock.find({
       relations: ['productQuantities', 'productQuantities.product'],
       where: {
-        date: Between(from, to),
+        date: Between(filters.from, filters.to),
         client: {
           id: client_id
         }
