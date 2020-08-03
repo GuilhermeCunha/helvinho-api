@@ -14,26 +14,19 @@ interface FilterDateParameters {
 export class ParametersController {
   async getByPool (req: Request, res: Response): Promise<Response | void> {
     const { pool_id } = req.params
-    let { from, to }: FilterDateParameters = req.query
-    if (!from || !to) {
-      const { first, last } = DateUtils.getFirstAndLastDays()
-      if (!from) {
-        from = first
-      }
-      if (!to) {
-        to = last
-      }
-    }
+    const { from, to }: FilterDateParameters = req.query
+    const filters = DateUtils.handleDateFilters(from, to)
 
     const parameters = await Parameter.find({
       relations: ['pool'],
       where: {
-        date: Between(from, to),
+        date: Between(filters.from, filters.to),
         pool: {
           id: pool_id
         }
       }
     })
+
     return res.status(HTTP_CODES.OK).json(parameters)
   }
 
