@@ -66,7 +66,7 @@ export class StocksController {
 
     const stock = new Stock()
     const client = await Client.findOne(client_id)
-    const formatedDate = moment(date, 'DD-MM-YYYY').toDate()
+    const formatedDate = moment(date, 'DD-MM-YYYY').utc().toDate()
     const oldStock = await Stock.findOne({
       where: {
         client: client,
@@ -103,15 +103,15 @@ export class StocksController {
   async update (req: Request, res: Response): Promise<Response | void> {
     const { id } = req.params
     const productQuantities:productQuantityStore[] = req.body.productQuantities
-    const { client_id } = req.body
+    const { date } = req.body
 
-    const stock = await Stock.findOne(id)
+    const stock = await Stock.findOne(id, {
+      relations: ['client', 'productQuantities']
+    })
     if (stock === undefined) {
       return res.status(HTTP_CODES.NOT_FOUND).json()
     }
 
-    const client = await Client.findOne(client_id)
-    stock.client = client
     stock.productQuantities = []
 
     for (const pq of productQuantities) {
@@ -120,7 +120,7 @@ export class StocksController {
       productQuantity.value = pq.value
       stock.productQuantities.push(await productQuantity.save())
     }
-
+    stock.date = moment(date, 'DD-MM-YYYY').utc().toDate()
     const errors = await stock.validate()
       .then(() => null)
       .catch((err) => err)
