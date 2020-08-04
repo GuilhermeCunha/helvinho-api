@@ -73,7 +73,7 @@ export class ParametersController {
     }
 
     parameter.pool = pool
-    parameter.date = moment(date, 'DD-MM-YYYY').utc().toDate()
+    parameter.date = moment(date, 'DD-MM-YYYY').toDate()
     const errors = await parameter.validate()
       .then(() => null)
       .catch((err) => err)
@@ -95,7 +95,7 @@ export class ParametersController {
     if (parameter === undefined) {
       return res.status(HTTP_CODES.NOT_FOUND).json()
     }
-    parameter.date = moment(date, 'DD-MM-YYYY').utc().toDate()
+    parameter.date = moment(date, 'DD-MM-YYYY').toDate()
     parameter.chlorine = chlorine
     parameter.ph = ph
     parameter.alkalinity = alkalinity
