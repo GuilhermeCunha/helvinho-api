@@ -66,7 +66,7 @@ export class StocksController {
 
     const stock = new Stock()
     const client = await Client.findOne(client_id)
-    const formatedDate = moment(date, 'DD-MM-YYYY').utc().toDate()
+    const formatedDate = moment(date, 'DD-MM-YYYY').toDate()
     const oldStock = await Stock.findOne({
       where: {
         client: client,
@@ -120,7 +120,7 @@ export class StocksController {
       productQuantity.value = pq.value
       stock.productQuantities.push(await productQuantity.save())
     }
-    stock.date = moment(date, 'DD-MM-YYYY').utc().toDate()
+    stock.date = moment(date, 'DD-MM-YYYY').toDate()
     const errors = await stock.validate()
       .then(() => null)
       .catch((err) => err)

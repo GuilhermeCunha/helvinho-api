@@ -5,8 +5,10 @@ import Routes from './routes'
 import AuthenticationsController from '@controllers/AuthenticationsController'
 import AuthService from './utils/AuthService'
 import moment from 'moment'
-import portugueseLocale from 'moment/locale/pt-br'
-moment.updateLocale('pt-br', portugueseLocale)
+import 'moment/locale/pt-br'
+moment.locale('pt-br')
+// import portugueseLocale from 'moment/locale/pt-br'
+// moment.updateLocale('pt-br', portugueseLocale)
 // moment.tz.setDefault('America/Sao_Paulo')
 
 class App {
