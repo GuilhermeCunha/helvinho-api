@@ -9,7 +9,7 @@ export class ReportsController {
   async generateDocument (req: Request, res: Response): Promise<Response | void> {
     const { pools, clientName, message } = req.body
     let { date } = req.body
-    date = moment(date, 'DD-MM-YYYY').toDate()
+    date = moment(date, 'DD-MM-YYYY').utc().toDate()
     return res.status(HTTP_CODES.CREATED).json(date)
   }
 

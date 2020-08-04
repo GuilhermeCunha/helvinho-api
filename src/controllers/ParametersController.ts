@@ -73,7 +73,7 @@ export class ParametersController {
     }
 
     parameter.pool = pool
-    parameter.date = moment(date, 'DD-MM-YYYY').toDate()
+    parameter.date = moment(date, 'DD-MM-YYYY').utc().toDate()
     const errors = await parameter.validate()
       .then(() => null)
       .catch((err) => err)
@@ -89,13 +89,13 @@ export class ParametersController {
 
   async update (req: Request, res: Response): Promise<Response | void> {
     const { id } = req.params
-    const { chlorine, ph, alkalinity, cyanuric } = req.body
+    const { chlorine, ph, date, alkalinity, cyanuric } = req.body
 
     const parameter = await Parameter.findOne(id)
     if (parameter === undefined) {
       return res.status(HTTP_CODES.NOT_FOUND).json()
     }
-
+    parameter.date = moment(date, 'DD-MM-YYYY').utc().toDate()
     parameter.chlorine = chlorine
     parameter.ph = ph
     parameter.alkalinity = alkalinity
