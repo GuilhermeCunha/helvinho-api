@@ -7,7 +7,6 @@ import { Client } from '@entities/Client'
 import moment from 'moment'
 import { Between } from 'typeorm'
 import DateUtils from '@utils/DateUtils'
-import momentTimezone from 'moment-timezone'
 
 interface productQuantityStore {
     productId: string;
@@ -41,13 +40,6 @@ export class StocksController {
         date: 'DESC'
       }
     })
-
-    console.log(`Moment LOCALE: ${moment().locale()}`)
-    console.log('-- Date:')
-    const timeZone = momentTimezone.tz.guess()
-    const zoneName = momentTimezone.tz(timeZone).zoneName()
-    console.log(`Zone: ${zoneName}`)
-    console.log(stocks[0].date)
 
     return res.status(HTTP_CODES.OK).json(stocks)
   }
@@ -129,12 +121,9 @@ export class StocksController {
       productQuantity.value = pq.value
       stock.productQuantities.push(await productQuantity.save())
     }
-    console.log(`Moment LOCALE: ${moment().locale()}`)
-    console.log('-- Date string:')
-    console.log(date)
+
     stock.date = moment(date, 'DD-MM-YYYY').toDate()
-    console.log('-- Date after:')
-    console.log(stock.date)
+
     const errors = await stock.validate()
       .then(() => null)
       .catch((err) => err)
