@@ -120,6 +120,8 @@ export class StocksController {
       productQuantity.value = pq.value
       stock.productQuantities.push(await productQuantity.save())
     }
+    console.log(moment().locale())
+    console.log(date)
     stock.date = moment(date, 'DD-MM-YYYY').toDate()
     const errors = await stock.validate()
       .then(() => null)
