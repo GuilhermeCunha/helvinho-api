@@ -1,6 +1,6 @@
 import { Response, Request } from 'express'
 import { HTTP_CODES } from '@utils/Contants'
-import { Parameter } from '@entities/Parameter'
+import { Parameter, DEFAULT_VALUE } from '@entities/Parameter'
 import { Pool } from '@entities/Pool'
 import moment from 'moment'
 import DateUtils from '@utils/DateUtils'
@@ -56,21 +56,14 @@ export class ParametersController {
     }
 
     const parameter = new Parameter()
-    if (NumberUtils.isNumber(chlorine)) {
-      parameter.chlorine = chlorine
-    }
 
-    if (NumberUtils.isNumber(ph)) {
-      parameter.ph = ph
-    }
+    parameter.alkalinity = NumberUtils.isNumber(alkalinity) ? alkalinity : DEFAULT_VALUE
 
-    if (NumberUtils.isNumber(alkalinity)) {
-      parameter.alkalinity = alkalinity
-    }
+    parameter.cyanuric = NumberUtils.isNumber(cyanuric) ? cyanuric : DEFAULT_VALUE
 
-    if (NumberUtils.isNumber(cyanuric)) {
-      parameter.cyanuric = cyanuric
-    }
+    parameter.ph = NumberUtils.isNumber(ph) ? ph : DEFAULT_VALUE
+
+    parameter.chlorine = NumberUtils.isNumber(chlorine) ? chlorine : DEFAULT_VALUE
 
     parameter.pool = pool
     parameter.date = moment(date, 'DD-MM-YYYY').toDate()
@@ -97,13 +90,13 @@ export class ParametersController {
     }
     parameter.date = moment(date, 'DD-MM-YYYY').toDate()
 
-    parameter.alkalinity = (alkalinity !== '' && alkalinity) ? alkalinity : undefined
+    parameter.alkalinity = NumberUtils.isNumber(alkalinity) ? alkalinity : DEFAULT_VALUE
 
-    parameter.cyanuric = (cyanuric !== '' && cyanuric) ? cyanuric : undefined
+    parameter.cyanuric = NumberUtils.isNumber(cyanuric) ? cyanuric : DEFAULT_VALUE
 
-    parameter.ph = (ph !== '' && ph) ? ph : undefined
+    parameter.ph = NumberUtils.isNumber(ph) ? ph : DEFAULT_VALUE
 
-    parameter.chlorine = (chlorine !== '' && chlorine) ? chlorine : undefined
+    parameter.chlorine = NumberUtils.isNumber(chlorine) ? chlorine : DEFAULT_VALUE
 
     const errors = await parameter.validate()
       .then(() => null)
