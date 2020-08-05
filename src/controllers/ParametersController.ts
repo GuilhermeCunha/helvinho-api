@@ -97,21 +97,13 @@ export class ParametersController {
     }
     parameter.date = moment(date, 'DD-MM-YYYY').toDate()
 
-    if (chlorine !== '' && chlorine) {
-      parameter.chlorine = chlorine
-    }
+    parameter.alkalinity = (alkalinity !== '' && alkalinity) ? alkalinity : undefined
 
-    if (ph !== '' && ph) {
-      parameter.ph = ph
-    }
+    parameter.cyanuric = (cyanuric !== '' && cyanuric) ? cyanuric : undefined
 
-    if (alkalinity !== '' && alkalinity) {
-      parameter.alkalinity = alkalinity
-    }
+    parameter.ph = (ph !== '' && ph) ? ph : undefined
 
-    if (cyanuric !== '' && cyanuric) {
-      parameter.cyanuric = cyanuric
-    }
+    parameter.chlorine = (chlorine !== '' && chlorine) ? chlorine : undefined
 
     const errors = await parameter.validate()
       .then(() => null)
