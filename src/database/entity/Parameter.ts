@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne } from 't
 import { validateOrReject, IsOptional, IsString } from 'class-validator'
 import { Pool } from './Pool'
 
+export const DEFAULT_VALUE = 'NAO MEDIDO'
 @Entity()
 export class Parameter extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
