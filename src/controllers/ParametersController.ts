@@ -96,10 +96,22 @@ export class ParametersController {
       return res.status(HTTP_CODES.NOT_FOUND).json()
     }
     parameter.date = moment(date, 'DD-MM-YYYY').toDate()
-    parameter.chlorine = chlorine
-    parameter.ph = ph
-    parameter.alkalinity = alkalinity
-    parameter.cyanuric = cyanuric
+
+    if (chlorine !== '' && chlorine) {
+      parameter.chlorine = chlorine
+    }
+
+    if (ph !== '' && ph) {
+      parameter.ph = ph
+    }
+
+    if (alkalinity !== '' && alkalinity) {
+      parameter.alkalinity = alkalinity
+    }
+
+    if (cyanuric !== '' && cyanuric) {
+      parameter.cyanuric = cyanuric
+    }
 
     const errors = await parameter.validate()
       .then(() => null)
