@@ -6,7 +6,7 @@ require('dotenv/config')
 
 createConnection()
   .then(connection => {
-    app.listen(Number(process.env.PORT) || 5000)
+    app.listen(Number(process.env.PORT_APP) || Number(process.env.PORT) || 5000)
     UserUtils.createAdminsIfNecessary()
     console.log(`Runing the App on the port : ${Number(process.env.PORT) || 5000}`)
   })
