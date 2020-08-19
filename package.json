@@ -56,7 +56,7 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
-    "@babel/runtime": "^7.10.4",
+    "@babel/runtime": "^7.11.2",
     "axios": "^0.19.2",
     "bcrypt": "^5.0.0",
     "class-validator": "^0.12.2",
