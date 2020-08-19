@@ -4,8 +4,8 @@
 #-------------------------------------------------------------------------------------------------------------
 
 # To fully customize the contents of this image, use the following Dockerfile instead:
-# https://github.com/microsoft/vscode-dev-containers/tree/v0.128.0/containers/typescript-node-14/.devcontainer/Dockerfile
-FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:0-14
+# https://github.com/microsoft/vscode-dev-containers/tree/v0.128.0/containers/typescript-node-10/.devcontainer/Dockerfile
+FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:0-10
 
 # ** [Optional] Uncomment this section to install additional packages. **
 #
