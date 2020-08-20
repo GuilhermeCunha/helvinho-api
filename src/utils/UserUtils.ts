@@ -18,8 +18,15 @@ class UserUtils {
       password: await LoginService.createHashedPassword(Math.random().toString(36).substring(12))
     }
 
+    const GuilhermeInfos: UserInfos = {
+      email: 'guiscunha@gmail.com',
+      username: 'Guilherme',
+      password: await LoginService.createHashedPassword(Math.random().toString(36).substring(12))
+    }
+
     this.adminFactory(HelvinhoInfos)
     this.adminFactory(HelvioInfos)
+    this.adminFactory(GuilhermeInfos)
   }
 
   async adminFactory (userInfos: UserInfos): Promise<void> {

@@ -47,13 +47,15 @@ export class AuthenticationsController {
 
   async generateResetToken (req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     const { email } = req.query
-
+    console.log('Recebendo pedido de token de recuperação')
     const user = await User.findOne({
       where: {
         email
       }
     })
+    
     if (user === undefined) {
+      console.log('Usuário inexistente')
       return res.status(HTTP_CODES.NOT_FOUND).json({ message: 'Usuario nao encontrado' })
     }
 
@@ -76,7 +78,12 @@ export class AuthenticationsController {
       'Código de recuperação de senha',
       `<strong>O seu código de recuperação é: ${String(token)}`
     )
-    if (success === true) return res.status(HTTP_CODES.OK).json({})
+    
+    if (success === true) {
+      console.log('Token enviado com sucesso')
+      return res.status(HTTP_CODES.OK).json({})
+    }
+    console.log('Erro ao enviar email')
     return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).json({})
   }
 
