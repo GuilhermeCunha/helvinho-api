@@ -78,7 +78,6 @@ export class AuthenticationsController {
       'Código de recuperação de senha',
       `<strong>O seu código de recuperação é: ${String(token)}`
     )
-    
     if (success === true) {
       console.log('Token enviado com sucesso')
       return res.status(HTTP_CODES.OK).json({})
