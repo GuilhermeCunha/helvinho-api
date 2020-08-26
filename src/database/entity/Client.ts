@@ -15,17 +15,17 @@ export class Client extends BaseEntity {
     name: string;
 
     @Column('text')
-    @IsDefined()
+    @IsOptional()
     @IsString()
     address: string;
 
     @Column('text')
-    @IsDefined()
+    @IsOptional()
     @IsString()
     cnpj: string;
 
     @Column('text')
-    @IsDefined()
+    @IsOptional()
     @IsString()
     cellphone: string;
 
