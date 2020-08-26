@@ -14,7 +14,7 @@ export class Employee extends BaseEntity {
     name: string;
 
     @Column('text')
-    @IsDefined()
+    @IsOptional()
     @IsString()
     address: string;
 
@@ -24,7 +24,7 @@ export class Employee extends BaseEntity {
     category: string;
 
     @Column('text')
-    @IsDefined()
+    @IsOptional()
     @IsString()
     cellphone: string;
 
