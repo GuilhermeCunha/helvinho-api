@@ -75,9 +75,19 @@ export class ParametersController {
       console.log(errors)
       return res.status(HTTP_CODES.BAD_REQUEST).json(errors)
     }
-
-    const created_parameter = await parameter.save()
-    return res.status(HTTP_CODES.CREATED).json(created_parameter)
+    const oldParameter = await Parameter.findOne({
+      where: {
+        date: parameter.date,
+        pool: {
+          id: pool_id
+        }
+      }
+    })
+    if (!oldParameter) {
+      const created_parameter = await parameter.save()
+      return res.status(HTTP_CODES.CREATED).json(created_parameter)
+    }
+    return res.status(HTTP_CODES.CREATED).json({})
   }
 
   async update (req: Request, res: Response): Promise<Response | void> {
