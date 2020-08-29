@@ -6,12 +6,44 @@ import moment from 'moment'
 import DateUtils from '@utils/DateUtils'
 import { Between } from 'typeorm'
 import NumberUtils from '@utils/NumberUtils'
+import { Client } from '@entities/Client'
 interface FilterDateParameters {
   from?: Date;
   to?: Date;
 }
 
 export class ParametersController {
+  async getByClient (req: Request, res: Response): Promise<Response | void> {
+    const { client_id } = req.params
+    const { from, to }: FilterDateParameters = req.query
+    const filters = DateUtils.handleDateFilters(from, to)
+
+    const client = await Client.findOne(client_id, {
+      relations: ['pools']
+    })
+
+    const result = client.pools.map(async (pool) => {
+      const parameters = await Parameter.find({
+        relations: ['pool'],
+        order: {
+          date: 'ASC'
+        },
+        where: {
+          date: Between(filters.from, filters.to),
+          pool: {
+            id: pool.id
+          }
+        }
+      })
+      return {
+        pool,
+        parameters
+      }
+    })
+
+    return res.status(HTTP_CODES.OK).json(result)
+  }
+
   async getByPool (req: Request, res: Response): Promise<Response | void> {
     const { pool_id } = req.params
     const { from, to }: FilterDateParameters = req.query

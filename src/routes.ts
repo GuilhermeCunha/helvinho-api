@@ -69,6 +69,7 @@ routes.route('/pools/:id')
   .delete(PoolsController.delete)
 
 routes.get('/pools/parameters/:pool_id', ParametersController.getByPool)
+routes.get('/pools/parameters/byClient/:client_id', ParametersController.getByClient)
 
 routes.route('/stocks')
   .get(StocksController.get)
