@@ -22,7 +22,7 @@ export class ParametersController {
       relations: ['pools']
     })
 
-    const result = client.pools.map(async (pool) => {
+    const result = await Promise.all(client.pools.map(async (pool) => {
       const parameters = await Parameter.find({
         relations: ['pool'],
         order: {
@@ -39,7 +39,7 @@ export class ParametersController {
         pool,
         parameters
       }
-    })
+    }))
 
     return res.status(HTTP_CODES.OK).json(result)
   }
